@@ -1,3 +1,86 @@
+
 .home-container{
     padding-top: 4rem;
+    width: 100%;
+    height: calc(100vh - 4rem); 
 }
+.cards-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/*----Inicio Card Principal-----*/
+.main-card{
+    height: 100%;
+    width: 70%;
+    padding-left: 6rem;
+    padding-right: 6rem;
+}
+
+.main-card-header{
+    height: 20%;
+}
+.main-card-image{
+    width: 100%;
+    height: 50%;
+}
+.main-card-content{
+    width: 100%;
+    height: 30%;
+}
+/*-----Fin Card principal-----*/
+
+/*-----Inicio Cards secundarios-----*/
+.side-cards{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30%;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    background-color: #f0f0f0;
+    width: auto;
+    height: 25%;
+    border: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.card-header{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: start;
+    justify-content: center;
+}
+.card-image {
+    overflow: hidden;
+    width:40%;         /* o el tamaño que prefieras */
+    height: 100%;        /* o el tamaño que prefieras */
+    margin-left: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+/*-----Fin Cards secundarios-----*/
+
+
+
+
+
+
