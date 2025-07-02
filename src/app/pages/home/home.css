@@ -1,5 +1,5 @@
 
-.home-container{
+/* .home-container{
     padding-top: 4rem;
     width: 100%;
     height: calc(100vh - 4rem); 
@@ -9,10 +9,10 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
-}
+} */
 
 /*----Inicio Card Principal-----*/
-.main-card{
+/* .main-card{
     height: 100%;
     width: 70%;
     padding-left: 6rem;
@@ -20,20 +20,40 @@
 }
 
 .main-card-header{
+    h5{
+        font-weight: lighter;
+        font-size: 1rem;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: red
+    }
+    h2{
+        font-weight: bold;
+        font-size: 2rem;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
     height: 20%;
+    display: flex;
+    flex-direction: column;
 }
 .main-card-image{
     width: 100%;
-    height: 50%;
+    height: 60%;
+}
+.main-card-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .main-card-content{
     width: 100%;
     height: 30%;
-}
+} */
 /*-----Fin Card principal-----*/
 
 /*-----Inicio Cards secundarios-----*/
-.side-cards{
+/* .side-cards{
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -42,14 +62,28 @@
 .card{
     display: flex;
     flex-direction: row;
-    background-color: #f0f0f0;
+    background-color: #d5e2e7;
     width: auto;
     height: 25%;
-    border: 1px solid #000;
     margin-bottom: 5px;
 }
 
 .card-header{
+    h5{
+        font-size: smaller;
+        color: red;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+    h3{
+        font-size:medium;
+        margin-top: 0px;
+    }
+    span{
+        font-size:x-small;
+    }
     width: 80%;
     height: 100%;
     display: flex;
@@ -60,8 +94,8 @@
 }
 .card-image {
     overflow: hidden;
-    width:40%;         /* o el tamaño que prefieras */
-    height: 100%;        /* o el tamaño que prefieras */
+    width:40%;        
+    height: 100%;        
     margin-left: 1rem;
     overflow: hidden;
     flex-shrink: 0;
@@ -76,7 +110,7 @@
     height: 100%;
     object-fit: fill;
     display: block;
-}
+} */
 /*-----Fin Cards secundarios-----*/
 
 

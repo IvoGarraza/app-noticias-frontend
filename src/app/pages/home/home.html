@@ -1,72 +1,71 @@
-<div class="home-container">
-    <div class="cards-container">
-        <div class="main-card">
-            <div class="main-card-header">
-                <h2>Titulo de la noticia</h2>
-                <h3>Subtitulo de la noticia</h3>
+<div class="home-container h-screen pt-24 w-full px-12 font-poppins">
+    <div class="cards-container w-full h-full grid grid-cols-3 gap-0 grid-rows-3">
+        <!-- noticia principal -->
+        <div class="main-card col-span-2 row-span-4 flex flex-col justify-around items-center pr-12"
+            *ngIf="news.length > 0">
+            <div class="main-card-header w-full h-1/6 flex flex-col justify-center">
+                <h5 [ngClass]="getCategoryTextClassMain(news[0].category)" class="font-bold w-fit border-1 px-4 rounded-xl">{{ news[0].category ||
+                    'Noticias' }}</h5>
+                <h2 class="text-4xl font-bold">{{ news[0].title }}</h2>
             </div>
-            <div class="main-card-image">
-                <img src="https://picsum.photos/600/200" alt="Imagen de la noticia" />
+            <div class="main-card-image w-full h-4/6">
+                <img class="w-full h-full object-cover"
+                    [src]="news[0].url || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=200&fit=crop'"
+                    [alt]="news[0].title" />
             </div>
-            <div class="main-card-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consectetur libero vel quam aliquam
-                    pellentesque. Proin sollicitudin augue quam, ac imperdiet purus luctus et. Morbi vulputate quam sed
-                    finibus ultricies. Ut nec ullamcorper risus, eu iaculis leo. In eget augue tellus. Pellentesque ac
-                    lacus
-                    vitae metus sodales tristique. Duis fringilla hendrerit dictum. Mauris sit amet tortor quis nibh
-                    faucibus bibendum non at mi. Sed eget odio arcu. Nulla efficitur vel augue vitae maximus. Maecenas
-                    ante
-                    odio, eleifend varius libero quis, mattis pellentesque odio. Sed feugiat et odio id dignissim. Donec
-                    vel
-                    quam tincidunt, sollicitudin nibh ac, posuere ligula. Donec eu tellus sit amet augue consequat
-                    pharetra
-                    ut vitae augue. Maecenas suscipit felis dictum massa fermentum pretium. Curabitur imperdiet, lacus a
-                    sollicitudin porta, leo nunc blandit orci, vel finibus metus sapien tincidunt nisl. Nunc accumsan
-                    urna
-                    non luctus iaculis. Sed vitae vehicula lectus. Aenean quis volutpat velit. In nisi nulla,
-                    pellentesque a
-                    fermentum sed, tristique eu turpis. Etiam tempor augue ullamcorper enim interdum, non sagittis nunc
-                    auctor.</p>
-                <span>Autor: Steve Jobs</span>
+            <div class="main-card-content h-1/6 w-full flex flex-col items-start justify-start">
+                <div class="flex flex-row w-full justify-between text-slate-500 font-light">
+                    <span>Autor: {{ news[0].author }}</span>
+                    <span>Actualizado: {{news[0].date}}</span>
+                </div>
+                <h3 class="text-lg font-medium">{{ news[0].subtitle }}</h3>
             </div>
         </div>
-        <div class="side-cards">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Titulo de la noticia</h3>
-                    <span>Autor: Steve Jobs</span>
+
+        <!-- noticias laterales -->
+        <div class="side-cards col-span-1 row-span-3 grid grid-cols-1 grid-rows-3 gap-2 p-2 w-full h-full">
+            <div class="card w-full h-full flex flex-row items-center rounded-xl p-4 transition-all scale-100 hover:scale-101 hover:shadow-md"
+                [ngClass]="getCategoryGradientClass(newsItem.category)"
+                *ngFor="let newsItem of news.slice(1, 4); let i = index">
+                <div class="card-header w-1/2 h-full flex flex-col justify-center">
+                    <h5 class="text-xs" [ngClass]="getCategoryTextClass(newsItem.category)">{{ newsItem.category ||
+                        'Noticias' }}</h5>
+                    <h3 class="text-md font-bold">{{ newsItem.title }}</h3>
+                    <span class="text-xs">{{ newsItem.author }}</span>
                 </div>
-                <div class="card-image">
-                    <img src="https://picsum.photos/200/300" alt="Imagen de la noticia" />
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3>Titulo de la noticia</h3>
-                    <span>Autor: Steve Jobs</span>
-                </div>
-                <div class="card-image">
-                    <img src="https://picsum.photos/200/300" alt="Imagen de la noticia" />
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3>Titulo de la noticia</h3>
-                    <span>Autor: Steve Jobs</span>
-                </div>
-                <div class="card-image">
-                    <img src="https://picsum.photos/200/300" alt="Imagen de la noticia" />
+                <div class="card-image w-1/2 h-full overflow-hidden object-cover">
+                    <img class="w-full h-full object-cover rounded-xl"
+                        [src]="newsItem.url"
+                        [alt]="newsItem.title" />
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3>Titulo de la noticia</h3>
-                    <span>Autor: Steve Jobs</span>
+        </div>
+    </div>
+    <!-- slider de noticias -->
+    <div class="h-2/3 w-full flex flex-row items-center justify-between py-4">
+        <!--boton izquierda-->
+        <div class="w-1/6 h-full flex items-center justify-center font-bold text-6xl">
+            <span class="bg-red-500  px-4  rounded-xl text-white cursor-pointer">{{"<"}}</span>
+        </div>
+        <!--noticias-->
+        <div class="h-full w-4/6 grid grid-cols-3 grid-rows-1 gap-4">
+            <div 
+            [ngClass]="getCategoryBackgroundSlider(noticia.category)"
+            class="row-span-1 cols-span-1 h-full flex flex-col rounded-xl overflow-hidden cursor-pointer transition-all scale-100 hover:scale-101 hover:shadow-md"
+                *ngFor="let noticia of news.slice(4,7); let i = index">
+                <div class="w-full h-2/3 p-4">
+                    <img class="w-full h-full object-cover rounded-xl"
+                        [src]="noticia.url || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=200&h=300&fit=crop'" />
                 </div>
-                <div class="card-image">
-                    <img src="https://picsum.photos/200/300" alt="Imagen de la noticia" />
+                <div class="w-full h-1/3 px-6 flex flex-col">
+                    <span [ngClass]="getCategoryTextClass(noticia.category)">{{noticia.category}}</span>
+                    <span class="font-bold text-xl">{{noticia.title}}</span>
                 </div>
             </div>
+        </div>
+        <!--boton derecha-->
+        <div class="w-1/6 h-full flex items-center justify-center font-bold text-6xl">
+            <span class="bg-red-500  px-4  rounded-xl text-white cursor-pointer">{{">"}}</span>
         </div>
     </div>
 </div>
