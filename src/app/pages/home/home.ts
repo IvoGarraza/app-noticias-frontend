@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsService, News } from '../../services/news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
-  templateUrl: './home.html',
-  styleUrl: './home.css'
+  templateUrl: './home.html'
 })
 export class Home implements OnInit {
   news: News[] = [];
 
-  constructor(private newsService: NewsService) {}
+  constructor(private newsService: NewsService, private router: Router) {}
+
+  goToDetail(newsId: number | undefined) {
+    this.router.navigate(['/news', newsId]);
+  }
 
   ngOnInit() {
     this.newsService.getNews().subscribe(news => {

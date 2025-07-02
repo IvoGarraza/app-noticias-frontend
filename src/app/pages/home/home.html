@@ -24,9 +24,11 @@
 
         <!-- noticias laterales -->
         <div class="side-cards col-span-1 row-span-3 grid grid-cols-1 grid-rows-3 gap-2 p-2 w-full h-full">
-            <div class="card w-full h-full flex flex-row items-center rounded-xl p-4 transition-all scale-100 hover:scale-101 hover:shadow-md"
+            <div
+            class="card w-full h-full flex flex-row items-center rounded-xl p-4 transition-all scale-100 hover:scale-101 hover:shadow-md"
                 [ngClass]="getCategoryGradientClass(newsItem.category)"
-                *ngFor="let newsItem of news.slice(1, 4); let i = index">
+                *ngFor="let newsItem of news.slice(1, 4); let i = index"
+                (click)="goToDetail(newsItem.id)">
                 <div class="card-header w-1/2 h-full flex flex-col justify-center">
                     <h5 class="text-xs" [ngClass]="getCategoryTextClass(newsItem.category)">{{ newsItem.category ||
                         'Noticias' }}</h5>

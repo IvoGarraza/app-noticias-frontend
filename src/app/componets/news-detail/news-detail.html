@@ -1,0 +1,27 @@
+<div *ngIf="newsItem;" class="w-full pt-24 px-12 flex-row flex">
+    <div class="w-3/4">
+        <div class="pt-6">
+            <span 
+            [ngClass]="getCategoryTextClass(newsItem.category)"
+            class="text-lg w-full p-2 rounded-full border-1">{{newsItem.category}}</span>
+        </div>
+        <div class="my-8">
+            <h2 class="text-4xl font-bold">{{newsItem.title}}</h2>
+            <span class="text-xl">{{newsItem.subtitle}}</span>
+        </div>
+        <div class="w-full h-[100vh]">
+            <img class="w-full h-full object-cover" [src]="newsItem.url"/>
+
+        </div>
+        <div class="w-full h-auto">
+            <div class="flex flex-row justify-between">
+                <span>Autor: {{newsItem.author}}</span>
+                <span>Actualizado: {{newsItem.date}}</span>
+            </div>
+            <p>{{newsItem.description}}</p>
+        </div>
+    </div>
+    <div class="w-1/4">
+
+    </div>
+</div>
