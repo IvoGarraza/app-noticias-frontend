@@ -1,0 +1,84 @@
+<div *ngIf="show" class="modal-overlay bg-[#0000008d] fixed w-full h-screen z-50 flex items-center justify-center animate-[fadeIn 0.3s ease-in-out]"
+  (click)="close.emit()">
+  <div class="modal-content bg-white w-1/2 rounded-xl h-3/4 flex flex-col items-center relative overflow-y-scroll"
+    (click)="$event.stopPropagation()">
+    <!-- Header del formulario -->
+    <div class="w-full bg-slate-100 p-6 font-bold flex flex-row justify-between items-center border-b-2 border-slate-300">
+      <h2 class="text-2xl">Editar Noticia</h2>
+      <button class=" text-4xl absolute right-4 top-2 rounded-xl cursor-pointer hover:scale-120 hover:text-red-500" (click)="close.emit()">&times;</button>
+    </div>
+    <form *ngIf="!isLoading && !isSuccess && editedNews" (ngSubmit)="$event.preventDefault(); onSave()"
+      class="w-full h-5/6 p-6">
+      <!-- Titulo de la noticia -->
+      <div class="sm:col-span-4">
+        <label for="title" class="block text-sm/6 font-medium text-gray-900">Titulo</label>
+        <div class="mt-2">
+          <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+            <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6"></div>
+            <input type="text" id="title" name="title" [(ngModel)]="editedNews.title" required class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" />
+          </div>
+        </div>
+      </div>
+      <!-- Contenido de la noticia -->
+      <div class="col-span-full">
+        <label for="description" class="block text-sm/6 font-medium text-gray-900">Contenido</label>
+        <div class="mt-2">
+          <textarea id="description" name="description" [(ngModel)]="editedNews.description" required rows="4" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+        </div>
+      </div>
+      <!-- autor de la noticia -->
+      <div class="sm:col-span-4">
+        <label for="author" class="block text-sm/6 font-medium text-gray-900">Autor</label>
+        <div class="mt-2">
+          <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+            <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6"></div>
+            <input type="text" id="author" name="author" [(ngModel)]="editedNews.author" required class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" />
+          </div>
+        </div>
+      </div>
+
+      <!-- categoria de la noticia -->
+      <div class="sm:col-span-3">
+        <label for="category" class="block text-sm/6 font-medium text-gray-900">Categoría</label>
+        <div class="mt-2 grid grid-cols-1">
+          <select id="category" name="category" [(ngModel)]="editedNews.category" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+            <option value="">Selecciona una categoría</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+          <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- url de la imagen de la noticia-->
+<!--       <div class="form-group">
+        <label for="url">URL de la imagen</label>
+        <input type="url" id="url" name="url" [(ngModel)]="editedNews.url" placeholder="https://ejemplo.com/imagen.jpg">
+      </div> -->
+      <div class="sm:col-span-4">
+        <label for="url" class="block text-sm/6 font-medium text-gray-900">Url de la imagen</label>
+        <div class="mt-2">
+          <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+            <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6"></div>
+            <input type="url" id="url" name="url" [(ngModel)]="editedNews.url" placeholder="https://ejemplo.com/imagen.jpg" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="janesmith" />
+          </div>
+        </div>
+      </div>
+      <!-- botones para cancelar y guardar cambios -->
+      <div class="w-full h-1/6 flex flex-row justify-end py-4 font-bold">
+        <button type="button" class="cursor-pointer transition-all bg-red-500 text-white px-6 py-2 rounded-lg
+        border-red-600
+        border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+        active:border-b-[2px] active:brightness-90 active:translate-y-[2px]" (click)="close.emit()">Cancelar</button>
+        <button type="submit" class="cursor-pointer transition-all bg-blue-500 text-white ml-2 px-2 rounded-lg
+        border-blue-600
+        border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+        active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Guardar Cambios</button>
+      </div>
+    </form>
+    <!--  -->
+    <div *ngIf="isLoading">Guardando... <span class="loader"></span></div>
+    <div *ngIf="isSuccess">¡Noticia modificada con éxito!</div>
+  </div>
+</div>

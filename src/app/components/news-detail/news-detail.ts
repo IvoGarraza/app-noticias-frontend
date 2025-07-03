@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService, News } from '../../services/news.service';
 import { CommonModule } from '@angular/common';
+import { NewsEditModal } from '../news-edit-modal/news-edit-modal';
 
 @Component({
   selector: 'app-news-detail',
   imports: [CommonModule],
   templateUrl: './news-detail.html',
-  styleUrl: './news-detail.css'
 })
 export class NewsDetail implements OnInit {
   newsItem?: News;
@@ -18,12 +18,19 @@ export class NewsDetail implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Obtiene el id de la ruta
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      // Busca la noticia por id
       this.newsService.getNews().subscribe(newsList => {
-        this.newsItem = newsList.find(n => n.id === id);
+        const found = newsList.find(n => n.id === id);
+        if (found) {
+          this.newsItem = found;
+          this.newsService.selectedNews = found;
+          console.log('Noticia seleccionada:', found);
+        } else {
+          this.newsItem = undefined;
+          this.newsService.selectedNews = null;
+          console.log('No se encontró la noticia');
+        }
       });
     }
   }

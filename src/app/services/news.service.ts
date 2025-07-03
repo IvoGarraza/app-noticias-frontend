@@ -123,11 +123,7 @@ export class NewsService {
     return this.news$;
   }
 
-  updateNewsLikes(newsId: number, likes: number): void {
-    const currentNews = this.newsSubject.value;
-    const updatedNews = currentNews.map(news => 
-      news.id === newsId ? { ...news, likes } : news
-    );
-    this.newsSubject.next(updatedNews);
-  }
+  selectedNews: News | null = null;
+  
+
 } 

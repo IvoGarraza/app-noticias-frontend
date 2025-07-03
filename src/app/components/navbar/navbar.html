@@ -1,12 +1,62 @@
 <nav class="navbar fixed bg-red-500 h-24 z-50 w-full flex flex-row justify-between items-center font-poppins">
-    <h2 class="title-navbar font-bold text-white text-4xl ml-12 cursor-pointer" (click)="goToHome()">MFNews</h2>
-    <button class="btn-create-news bg-white text-red-500 py-2 rounded-full mr-4 p-6 transition-all hover:bg-black hover:text-white cursor-pointer" (click)="openModal()">
+    <h2 *ngIf="!isDetailRoute" class="title-navbar font-bold text-white text-4xl ml-12 cursor-pointer"
+        >MFNews</h2>
+    <!-- Boton para crear noticia -->
+    <button *ngIf="!isDetailRoute"
+        class="group flex flex-row bg-white text-red-500 py-2 rounded-full mr-4 p-6 transition-all hover:bg-black hover:text-white cursor-pointer"
+        (click)="openModal()">
+        <!-- svg -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            class="size-6 mr-2 stroke-red-400 group-hover:stroke-green-400 group-hover:rotate-90 fill-none group-hover:fill-green-800 group-active:stroke-green-200 group-active:fill-green-600 group-active:duration-0 duration-300">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                stroke-width="1.5"></path>
+            <path d="M8 12H16" stroke-width="1.5"></path>
+            <path d="M12 16V8" stroke-width="1.5"></path>
+        </svg>
         Crear noticia
     </button>
+
+    <!-- Botones para editar y eliminar noticia -->
+    <div *ngIf="isDetailRoute" class="flex flex-row justify-between w-full">
+        <div class="relative pl-12">
+            <button
+            (click)="goToHome()"
+            class="font-bold text-white cursor-pointer hover:left-14 text-6xl absolute -top-2">{{'<'}} </button>
+        </div>
+                <div class="flex flex-row">
+                    <button
+                        class="flex flex-row bg-white text-red-500 py-2 rounded-full mr-4 p-6 transition-all hover:bg-black hover:text-white cursor-pointer"
+                        (click)="openEditModal()">
+                        <svg class="h-5 w-5 mr-1 self-center items-center" fill="none" stroke="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325">
+                            </path>
+                        </svg>
+
+                        Editar noticia</button>
+                    <button
+                        class="flex flex-row bg-white text-red-500 py-2 rounded-full mr-4 p-6 transition-all hover:bg-black hover:text-white cursor-pointer"
+                        (click)="openDeleteModal()">
+                        <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                        </svg>
+                        Eliminar noticia</button>
+                </div>
+    </div>
 </nav>
 
-<news-modal 
-    *ngIf="showModal"
-    (closeModal)="closeModal()"
-    (addNews)="onAddNews($event)">
+
+<!-- Modal para crear noticia -->
+<news-modal *ngIf="showModal" (closeModal)="closeModal()" (addNews)="onAddNews($event)">
 </news-modal>
+
+<!-- Modal para editar noticia -->
+<news-edit-modal *ngIf="showEditModal && newsItem" [newsItem]="newsItem" [show]="showEditModal"
+    (close)="closeEditModal()" (save)="onSaveEdit($event)">
+</news-edit-modal>
+
+<!-- Modal para eliminar noticia -->
